@@ -29,15 +29,26 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+  const commandName = args.shift().toLowerCase();
 
-  if (!client.commands.has(command)) return;
+  if (!client.commands.has(commandName)) return;
+
+  const command = client.commands.get(commandName);
+
+  if (command.guildOnly && message.channel.type === 'dm') {
+    return message.reply('I cannot execute that command inside DMs!')
+  }
+
+  if (command.args && !args.length) {
+    return message.channel.send(`You didn't provide any arguments, ${message.author}`);
+  }
 
   try {
-    client.commands.get(command).execute(message, args);
+    command.execute(message, args);
   } catch (error) {
     console.log(error);
     message.reply('There was an error trying to execute your command!');

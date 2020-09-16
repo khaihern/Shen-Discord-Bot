@@ -1,9 +1,11 @@
 module.exports = {
   name: 'avatar',
-  description: 'Ping!',
+  description: 'Get the avatar of users',
+  args: false,
+  guildOnly: true,
   execute(message, args) {
     if (!message.mentions.users.size) {
-      return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: "true"})}>`)
+      return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: "png", dynamic: "true"})}>`);
     }
 
     const avatarList = message.mentions.users.map(user => {

@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log('Connected as ' + client.user.tag);
 
-  client.user.setActivity('#Respect_DEVS', {type: 'WATCHING'});
+  client.user.setActivity('#GL@School', {type: 'WATCHING'});
 });
 
 client.on('message', message => {
